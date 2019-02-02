@@ -1,4 +1,4 @@
-**Finding Lane Lines on the Road**
+# **Finding Lane Lines on the Road**
 [![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 <img src="examples/laneLines_thirdPass.jpg" width="480" alt="Combined Image" />
 
@@ -8,9 +8,11 @@ Similarly, it is a critical task for an autonomous vehicle to perform. It turns 
 
 The goal of this project, the first Term 1 of the Udacity Self Driving Car Engineer Nanodegree, is to create a pipeline that finds lane lines on the road.
 
-**Setup**
+## Setup
 
-Udacity provided sample images of size 960 x 540 pixels for training our pipeline. There are pictures with yellow and white lane lines. Below, you can see two example picture
+Udacity provided sample images of size 960 x 540 pixels for training our pipeline. There are pictures with yellow and white lane lines. Below, you can see two example pictures
+
+
 
 
 # **Finding Lane Lines on the Road** 
