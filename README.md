@@ -50,13 +50,13 @@ We now can apply a Canny Edge Detector for detecting lines in an image and disca
 ### Hough Transform
 Next, Hough Transform is applied to the resulting image. The goal of Hough Transform is to combine edge points to a continuous line. This is done by transforming the current cartesian coordinate system denoted by axis (x,y) to a parametric one where axes are (m, b), where m is a line's slope and b the intercept. In this space the problem of detecting points on a line in cartesian space is reduced to finding intersecting sinusoids.
 
-### Lane line interpolation
+### Lane line Extrapolation
 Now we've marked multiple lane lines in the images. In the end however, we only need two, namely one left and one right lane line. In this step, the goal was to create two continuous lane lines, one for the left lane and one for the right lane. 
 First, we separate the hough lines into left and right lines. This is done by considering their slope. If the slope of a Hough line is greater than zero, it is a left line, else, it is a right line.
 
 Next, we calculate an "average" left and an "average" right line out of the left and right lines. This is done using a linear regression algorithm. This algorithm fits a line through the left and right points such that the minimal squared error is as little as possible.
 
-In the last step, we make the left and right lines both run continuously from the bottom of the image to the highest detected lane point. This is done by linear interpolation.
+In the last step, we make the left and right lines both run continuously from the bottom of the image to the highest detected lane point. This is done by linear extrapolation.
 
 Shortcomings
 ---
