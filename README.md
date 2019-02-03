@@ -26,7 +26,7 @@ The pipeline defined in the function `detect lane line` consisted of the followi
 1. Select triangular region of interest
 1. Gaussian Blur
 1. Canny Edge Detection
-1. Hough Transformation
+1. Hough Transform
 1. Lane line interpolation:
     1. Separate left and right lines
     1. Create average, continuous lane out of Hough lines using linear Regression
@@ -42,10 +42,20 @@ Next the output of the color selection to grayscale. This helps for a higher con
 Next, I selected a region of interest around the lane lines. Therefore, we assume that the camera is centered, and the road has always about the same with. We select a triangular area and color in the grayscaled image everything outside this triangular area in black.
 
 ### Gaussian blur
-Our next task is to extract the lane lines from the image. Gaussian blur 
-A kernel size of three gave good results.
+Our next task is to extract the lane lines from the image. Gaussian blur (also referred to as Gaussian smoothing) is a pre-processing technique used to smoothen the edges of an image to reduce noise. The kernel size determines the size of the area, over which the smoothing is calculated. A kernel size of three gave good results.
 
-### 
+### Canny Edge detection
+We now can apply a Canny Edge Detector for detecting lines in an image and discarding all other image data. The OpenCV implementation needs to parameters, a low and high threshold which determine whether to include a given edge or not. A threshold captures the intensity of the gradient in a given point. Any point beyond the high threshold will be classified as edges and hence remain in the image. Points between the threshold values will only be kept if they are next to an edge. Edges that are below our low threshold are discarded. Recommended low-high threshold ratios are 1:3 or 1:2. We use values 50 for low threshold and 150 for the high threshold.
+
+### Hough Transform
+Next, Hough Transform is applied to the resulting image. The goal of Hough Transform is to find lines by identifiying all points that lie on them. This is done by converting our current system denoted by axis (x,y) to a parametric one where axes are (m, b). In this plane:
+
+lines are represented as points
+points are presented as lines (since they can be on many lines in traditional coordinate system)
+intersecting lines means the same point is on multiple lines
+
+### Lane line separation
+In this step, the goal was to create two continuous lane lines, one for the left lane and one for the right lane. 
 
 Shortcomings
 ---
