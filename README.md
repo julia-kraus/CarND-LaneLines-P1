@@ -20,19 +20,23 @@ Lane Detection Pipeline
 ---
 The pipeline defined in the function `detect lane line` consisted of the following steps:
 1. Color selection
-  a) Yellow -> convert picture to HSV color space
-  b) White -> select white patches in RGB color space
-2. Grayscaling
-3. Select triangular region of interest
-4. Gaussian Blur
-5. Canny Edge Detection
-6. Hough Transformation
-7. Lane line interpolation:
-  a) Separate left and right lines
-  b) Create average, continuous lane out of Hough lines using linear Regression
-  
-In the first step I isolated yellow and white regions from the image. It was hard to detect yellow regions in RGB color space, so I converted the picture into the HSV color space. There I could 
+  1. Yellow -> convert picture to HSV color space
+  1. White -> select white patches in RGB color space
+1. Grayscaling
+1. Select triangular region of interest
+1. Gaussian Blur
+1. Canny Edge Detection
+1. Hough Transformation
+1. Lane line interpolation:
+  1. Separate left and right lines
+  1. Create average, continuous lane out of Hough lines using linear Regression
 
+### Color Selection
+In the first step I isolated yellow and white regions from the image. It was hard to detect yellow regions in RGB color space, so I converted the picture into the HSV color space. There I could distinguish yellow things with a low threshold of 
+[20, 100, 100] and a high threshold of [30, 255, 255]. White things were easy to distinguish in H
+
+### Grayscaling
+Next, 
 
 Creating a Great Writeup
 ---
