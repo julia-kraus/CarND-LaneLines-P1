@@ -48,14 +48,15 @@ Our next task is to extract the lane lines from the image. Gaussian blur (also r
 We now can apply a Canny Edge Detector for detecting lines in an image and discarding all other image data. The OpenCV implementation needs to parameters, a low and high threshold which determine whether to include a given edge or not. A threshold captures the intensity of the gradient in a given point. Any point beyond the high threshold will be classified as edges and hence remain in the image. Points between the threshold values will only be kept if they are next to an edge. Edges that are below our low threshold are discarded. Recommended low-high threshold ratios are 1:3 or 1:2. We use values 50 for low threshold and 150 for the high threshold.
 
 ### Hough Transform
-Next, Hough Transform is applied to the resulting image. The goal of Hough Transform is to find lines by identifiying all points that lie on them. This is done by converting our current system denoted by axis (x,y) to a parametric one where axes are (m, b). In this plane:
+Next, Hough Transform is applied to the resulting image. The goal of Hough Transform is to combine edge points to a continuous line. This is done by transforming the current cartesian coordinate system denoted by axis (x,y) to a parametric one where axes are (m, b), where m is a line's slope and b the intercept. In this space the problem of detecting points on a line in cartesian space is reduced to finding intersecting sinusoids.
 
-lines are represented as points
-points are presented as lines (since they can be on many lines in traditional coordinate system)
-intersecting lines means the same point is on multiple lines
+### Lane line interpolation
+Now we've marked multiple lane lines in the images. In the end however, we only need two, namely one left and one right lane line. In this step, the goal was to create two continuous lane lines, one for the left lane and one for the right lane. 
+First, we separate the hough lines into left and right lines. This is done by considering their slope. If the slope of a Hough line is greater than zero, it is a left line, else, it is a right line.
 
-### Lane line separation
-In this step, the goal was to create two continuous lane lines, one for the left lane and one for the right lane. 
+Next, we calculate an "average" left and an "average" right line out of the left and right lines. This is done using a linear regression algorithm. This algorithm fits a line through the left and right points such that the minimal squared error is as little as possible.
+
+In the last step, we make the left and right lines both run continuously from the bottom of the image to the highest detected lane point. This is done by linear interpolation.
 
 Shortcomings
 ---
@@ -64,12 +65,6 @@ The lane detector works really well on the images, but not always well on the vi
 Possible Improvements
 ---
 The above issue might be addressed by giving the algorithm memory. One can assume that subsequent frames in a video look about the same, i.e. have similar lane lines. If that is true, one could conclude from previous frames to following ones and use the previous lane line parameters again for averaging over the new frame's parameters.
-
-
-
-We encourage using images in your writeup to demonstrate how your pipeline works.  
-
-All that said, please be concise!  We're not looking for you to write a book here: just a brief description.
  
 
 
